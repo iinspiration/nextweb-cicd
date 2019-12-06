@@ -1,0 +1,6 @@
+version: "3.0"
+services:
+  nextweb:
+    image: iinspiration/nextweb
+    deploy:
+      replicas: 2
