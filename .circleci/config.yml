@@ -29,7 +29,7 @@ jobs:
             docker tag nextweb $DOCKER_HUB_USER_ID/nextweb:latest
             docker push $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
             docker push $DOCKER_HUB_USER_ID/nextweb:latest
-      - run:
-          name: ดีพลอยสแต็ค
-          command: |
-            docker stack deploy --compose-file prod.yml nextweb
+      # - run:
+      #     name: ดีพลอยสแต็ค
+      #     command: |
+      #       docker stack deploy --compose-file prod.yml nextweb
