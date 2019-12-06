@@ -9,7 +9,7 @@ RUN apk update \
 WORKDIR /home/node/nextweb
 
 COPY package.json ./
-COPY ./.env ./.env
+# COPY ./.env ./.env
 
 RUN yarn install
 
