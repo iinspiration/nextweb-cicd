@@ -12,11 +12,15 @@ jobs:
       #     command: |
       #       apk add --no-cache py-pip=9.0.0-r1
       #       pip install docker-compose==1.15.0
+      - build:
+          name: บิ้วด๊อกเก้ออิมเมจ
+          command: |
+            docker build -t nextweb .
       - deploy:
-          name: push Docker Image
+          name: พุชด๊อกเก้ออิมเมจ
           command: |
             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PASSWORD
-            docker tag nextweb_nextweb $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
-            docker tag nextweb_nextweb $DOCKER_HUB_USER_ID/nextweb:latest
+            docker tag nextweb $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
+            docker tag nextweb $DOCKER_HUB_USER_ID/nextweb:latest
             docker push $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
             docker push $DOCKER_HUB_USER_ID/nextweb:latest
