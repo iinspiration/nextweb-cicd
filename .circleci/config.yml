@@ -1,31 +1,3 @@
-# version: 2
-# jobs:
-#   build:
-#     working_directory: /nextweb
-#     docker:
-#       - image: docker:17.05.0-ce-git
-#     steps:
-#       - checkout
-#       - setup_remote_docker
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             apk add --no-cache py-pip=9.0.0-r1
-#             pip install docker-compose==1.15.0
-#       - deploy:
-#           name: push Docker Image
-#           command: |
-#             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PASSWORD
-#             docker tag nexweb_nextweb $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
-#             docker tag nexweb_nextweb $DOCKER_HUB_USER_ID/nextweb:latest
-#             docker push $DOCKER_HUB_USER_ID/nexweb:$CIRCLE_SHA1
-#             docker push $DOCKER_HUB_USER_ID/nexweb:latest
-
-
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
 jobs:
   build:
@@ -44,7 +16,7 @@ jobs:
           name: push Docker Image
           command: |
             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PASSWORD
-            docker tag nexweb_nextweb $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
-            docker tag nexweb_nextweb $DOCKER_HUB_USER_ID/nextweb:latest
-            docker push $DOCKER_HUB_USER_ID/nexweb:$CIRCLE_SHA1
-            docker push $DOCKER_HUB_USER_ID/nexweb:latest
+            docker tag nextweb_nextweb $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
+            docker tag nextweb_nextweb $DOCKER_HUB_USER_ID/nextweb:latest
+            docker push $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
+            docker push $DOCKER_HUB_USER_ID/nextweb:latest
