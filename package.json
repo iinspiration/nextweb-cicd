@@ -64,7 +64,8 @@
     "react-waypoint": "^9.0.2",
     "serve-favicon": "^2.5.0",
     "webfontloader": "^1.6.28",
-    "webpack-pwa-manifest": "^4.0.0"
+    "webpack-pwa-manifest": "^4.0.0",
+    "yarn": "^1.21.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
