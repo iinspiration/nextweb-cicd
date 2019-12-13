@@ -23,8 +23,7 @@ jobs:
       - run:
           name: Install awscli
           command: |
-            sudo npm install yarn
-            sudo yarn add awsebcli --upgrade
+            npm install aws-sdk
       - run:
           name: Create AWS credentials manually
           command: |
