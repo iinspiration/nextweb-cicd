@@ -1,27 +1,17 @@
 version: 2
 jobs:
-  build:
+  deploy:
     working_directory: ~/nextweb
     docker:
       - image: circleci/node:7.10
     steps:
       - checkout
       - setup_remote_docker
-      # - run:
-      #     name: Install dependencies
-      #     command: |
-      #       apk add --no-cache py-pip=9.0.0-r1
-      #       pip install docker-compose==1.15.0
-      # - run:
-      #     name: เกียมเอ็นวาย
-      #     command:  |
-      #     echo "$ENV" > .env
-      #     cat .env
       - run:
           name: บิ้วด๊อกเก้ออิมเมจ
           command: |
             docker build -t nextweb .
-      - deploy:
+      - run:
           name: พุชด๊อกเก้ออิมเมจ
           command: |
             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PASSWORD
@@ -29,7 +19,31 @@ jobs:
             docker tag nextweb $DOCKER_HUB_USER_ID/nextweb:latest
             docker push $DOCKER_HUB_USER_ID/nextweb:$CIRCLE_SHA1
             docker push $DOCKER_HUB_USER_ID/nextweb:latest
-      # - run:
-      #     name: ดีพลอยสแต็ค
-      #     command: |
-      #       docker stack deploy --compose-file prod.yml nextweb
+
+      - run:
+          name: Install awscli
+          command: |
+            sudo pip install awsebcli --upgrade
+      - run:
+          name: Create AWS credentials manually
+          command: |
+            mkdir ~/.aws
+            touch ~/.aws/config
+            chmod 600 ~/.aws/config
+            echo "[profile eb-cli]" > ~/.aws/config
+            echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/config
+            echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
+      - run:
+          name: Deploy to EB if branch is Master
+          command: |
+             eb use server-backend-env --profile eb-cli
+             eb deploy -v --staged --profile eb-cli
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: 
+                - master
